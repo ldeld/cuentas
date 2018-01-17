@@ -14,7 +14,7 @@ class User < ApplicationRecord
     return total_spent
   end
 
-  def other_users
-    User.where.not(user = current_user)
+  def all_except_self
+    User.where.not(id: self.id)
   end
 end
