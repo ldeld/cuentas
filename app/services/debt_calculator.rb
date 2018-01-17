@@ -1,0 +1,2 @@
+class DebtCalculator
+end
