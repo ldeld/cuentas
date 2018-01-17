@@ -1,0 +1,17 @@
+<% if  @user == current_user %>
+  <h1>Tus facturas</h1>
+<% else %>
+  <h1>Facturas de <%= @user.name %></h1>
+<% end %>
+<ul>
+  <% @facturas.each do |factura| %>
+  <li>
+      <p><%= factura.amount %> - <%= factura.description %></p>
+  </li>
+  <% end %>
+</ul>
+<% if @user == current_user %>
+  <%= link_to "Agregar nueva factura", new_user_factura_path(@user) %>
+<% end %>
+<br>
+<%= link_to "Volver a la pagina principal", root_path %>

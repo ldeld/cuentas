@@ -1,0 +1,9 @@
+<h1>Crear una nueva factura</h1>
+
+<%= simple_form_for ([@user, @factura]) do |f| %>
+  <%= f.input :amount, label: "Costo", as: :float %>
+  <%= f.input :description, label: "Descripción" %>
+  <%= f.submit "Crear factura", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "Volver a la pagina principal", root_path %>
