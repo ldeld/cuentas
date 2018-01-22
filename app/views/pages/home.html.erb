@@ -4,7 +4,7 @@
 
 <h4>Mostrando gastos del mes de <%= Date.today.strftime("%B") %></h4>
 <ul>
-  <li>Tus gastos: <%= current_user.expenses %> € <%= link_to "Ver lista", user_facturas_path(current_user) %> </li>
+  <li>Tus gastos: <%= current_user.expenses %> € <%= link_to "Ver lista", user_facturas_path(current_user) %> - <%= link_to "Agregar una factura", new_user_factura_path(current_user)  %></li>
 
   <% current_user.all_except_self.each do |user| %>
     <li> Gastos de <%= user.name %>: <%= user.expenses %> € <%= link_to "Ver lista", user_facturas_path(user) %> </li>
