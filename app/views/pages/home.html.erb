@@ -2,10 +2,10 @@
 
 <p>Mostrando gastos del mes de <%= Date.today.strftime("%B") %></p>
 
-<p>Tus gastos: <%= current_user.total %> <%= link_to "Ver lista", user_facturas_path(current_user) %> </p>
+<p>Tus gastos: <%= current_user.expenses %> <%= link_to "Ver lista", user_facturas_path(current_user) %> </p>
 
 <% current_user.all_except_self.each do |user| %>
-  <p> Gastos de <%= user.name %>: <%= user.total %> <%= link_to "Ver lista", user_facturas_path(user) %> </p>
+  <p> Gastos de <%= user.name %>: <%= user.expenses %> <%= link_to "Ver lista", user_facturas_path(user) %> </p>
 <% end %>
 
 <h3>Gastos totales de la casa: <%= @home_total %></h3>
@@ -15,6 +15,6 @@
 
 <h3>Tus deudas: </h3>
 <% current_user.all_except_self.each do |user| %>
-  <% debt = (@home_total / User.all.size) - current_user.total %>
+  <% debt = (@home_total / User.all.size) - current_user.expenses %>
   <p><%= debt_string(debt) %></p>
 <% end %>
