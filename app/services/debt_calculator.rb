@@ -1,4 +1,5 @@
 class DebtCalculator
+  attr_reader :home_total
   def initialize(users)
     @users = users
     @home_total = 0
@@ -27,7 +28,7 @@ class DebtCalculator
       last = users.last
       value_change = [first.debt.abs, last.debt.abs].minmax[0]
       transactions << change_between_users(first, last, value_change)
-      users.reject! {|u| u.debt == 0}
+      users.reject! { |u| u.debt == 0 }
     end
     transactions
   end

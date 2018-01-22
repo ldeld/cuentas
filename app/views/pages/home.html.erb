@@ -1,20 +1,23 @@
-<h2>Sesión iniciada como: <%= current_user.name %></h2>
-
-<p>Mostrando gastos del mes de <%= Date.today.strftime("%B") %></p>
-
-<p>Tus gastos: <%= current_user.expenses %> <%= link_to "Ver lista", user_facturas_path(current_user) %> </p>
-
-<% current_user.all_except_self.each do |user| %>
-  <p> Gastos de <%= user.name %>: <%= user.expenses %> <%= link_to "Ver lista", user_facturas_path(user) %> </p>
-<% end %>
-
-<h3>Gastos totales de la casa: <%= @home_total %></h3>
+<h4>Sesión iniciada como: <%= current_user.name %></h4>
 
 <br>
-<br>
 
-<h3>Tus deudas: </h3>
-<% current_user.all_except_self.each do |user| %>
-  <% debt = (@home_total / User.all.size) - current_user.expenses %>
-  <p><%= debt_string(debt) %></p>
-<% end %>
+<h4>Mostrando gastos del mes de <%= Date.today.strftime("%B") %></h4>
+<ul>
+  <li>Tus gastos: <%= current_user.expenses %> € <%= link_to "Ver lista", user_facturas_path(current_user) %> </li>
+
+  <% current_user.all_except_self.each do |user| %>
+    <li> Gastos de <%= user.name %>: <%= user.expenses %> € <%= link_to "Ver lista", user_facturas_path(user) %> </li>
+  <% end %>
+</ul>
+<p>Gastos totales de la casa: <%= @home_total %> €</p>
+
+<h4>Deudas: </h4>
+<ul>
+  <% @user_owes.each do |transaction| %>
+    <li>Le debes <%= transaction[:value] %> € a <%= User.find(transaction[:receiver]).name %></li>
+  <% end %>
+  <% @user_is_owed.each do |transaction| %>
+    <li> <%= User.find(transaction[:giver]).name %> te debe <%= transaction[:value] %> € </li>
+  <% end %>
+</ul>
