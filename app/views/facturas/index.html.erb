@@ -6,19 +6,23 @@
 <% end %>
 <ul class="home-page-card row">
   <div class="col-xs-5">
-  <% @facturas.each do |factura| %>
-  <li class="home-page-li">
-      <span>
-        <%= factura.amount %> €
-      </span>
-      <span>
-        <%= factura.description %>  </p>
-      </span>
-      <span>
-        <%= factura.created_at.strftime("%d/%m/%y") %>
-      </span>
-  </li>
-  <% end %>
+    <% if @facturas.empty? %>
+      <p>No hay facturas por el momento</p>
+    <% end %>
+    <% @facturas.each do |factura| %>
+      <li class="home-page-li">
+          <span>
+            <%= factura.amount %> €
+          </span>
+          <span>
+            <%= factura.description %>  </p>
+          </span>
+          <span>
+            <%= factura.created_at.strftime("%d/%m/%y") %>
+          </span>
+      </li>
+    <% end %>
+    <h4>Total: <%= @user.expenses %> €</h4>
   </div>
 </ul>
 <% if @user == current_user %>

@@ -24,6 +24,9 @@
 </ul>
 
 <h4> Deudas: </h4>
+<% if @user_owes.empty? && @user_is_owed.empty? %>
+  <p>No hay deudas en este momento</p>
+<% end %>
 <ul class="home-page-card col-xs-12">
   <% @user_owes.each do |transaction| %>
     <li class="home-page-li">
