@@ -1,23 +1,38 @@
-<h4>Sesión iniciada como: <%= current_user.name %></h4>
-
 <br>
 
-<h4>Mostrando gastos del mes de <%= Date.today.strftime("%B") %></h4>
-<ul>
-  <li>Tus gastos: <%= current_user.expenses %> € <%= link_to "Ver lista", user_facturas_path(current_user) %> - <%= link_to "Agregar una factura", new_user_factura_path(current_user)  %></li>
+<h4> Gastos: </h4>
+<ul class="home-page-card row">
+  <div class="col-xs-5">
+  <li class="home-page-li">
+    Tus gastos: <%= current_user.expenses %> €
+    <span>
+      <%= link_to "Ver lista", user_facturas_path(current_user) %>
+    </span>
+  </li>
 
   <% current_user.all_except_self.each do |user| %>
-    <li> Gastos de <%= user.name %>: <%= user.expenses %> € <%= link_to "Ver lista", user_facturas_path(user) %> </li>
+    <li class="home-page-li">
+      Gastos de <%= user.name %>: <%= user.expenses %> €
+      <span>
+        <%= link_to "Ver lista", user_facturas_path(user) %>
+      </span>
+    </li>
   <% end %>
+  <h4>Gastos totales de la casa: <%= @home_total %> €</h4>
+  <%= link_to "Agregar una factura", new_user_factura_path(current_user), class: "btn btn-primary" %>
+  </div>
 </ul>
-<p>Gastos totales de la casa: <%= @home_total %> €</p>
 
-<h4>Deudas: </h4>
-<ul>
+<h4> Deudas: </h4>
+<ul class="home-page-card col-xs-12">
   <% @user_owes.each do |transaction| %>
-    <li>Le debes <%= transaction[:value] %> € a <%= User.find(transaction[:receiver]).name %></li>
+    <li class="home-page-li">
+      Le debes <%= transaction[:value] %> € a <%= User.find(transaction[:receiver]).name %>
+    </li>
   <% end %>
   <% @user_is_owed.each do |transaction| %>
-    <li> <%= User.find(transaction[:giver]).name %> te debe <%= transaction[:value] %> € </li>
+    <li class="home-page-li">
+      <%= User.find(transaction[:giver]).name %> te debe <%= transaction[:value] %> €
+    </li>
   <% end %>
 </ul>

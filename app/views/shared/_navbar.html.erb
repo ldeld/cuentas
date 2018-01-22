@@ -3,6 +3,7 @@
   <%= link_to root_path, class: "navbar-wagon-brand" do %>
     <%= image_tag "logo.png", height: 50 %>
   <% end %>
+  <h3>El Aptico</h3>
 
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
@@ -10,10 +11,10 @@
     <% if user_signed_in? %>
 
       <!-- Links when logged in -->
-      <%= link_to "Host", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to "Trips", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to "Messages", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-
+      <%# link_to "Host", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+      <%# link_to "Trips", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+      <%# link_to "Messages", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+      <a class="navbar-wagon-item navbar-wagon-link">Sesión iniciada como: <%= current_user.name %></a>
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
