@@ -9,10 +9,10 @@ class User < ApplicationRecord
 
   def expenses
     total_spent = 0.0
-    self.facturas.each do |factura|
+    facturas.each do |factura|
       total_spent += factura.amount
     end
-    return total_spent
+    total_spent
   end
 
   def <=>(other)
@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def all_except_self
-    User.where.not(id: self.id)
+    User.where.not(id: id)
   end
 
   def calc_debt(total_per_user)
