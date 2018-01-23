@@ -18,7 +18,6 @@ class FacturasController < ApplicationController
     if @factura.save
       redirect_to user_facturas_path(current_user)
     else
-      binding.pry
       render :new
     end
   end
