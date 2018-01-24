@@ -14,19 +14,23 @@ class DebtCalculator
     { receiver: u1.id, giver: u2.id, value: value }
   end
 
+  def calc_total_debt(user)
+    user.debt = @total_per_user - user.expenses
+  end
   # TODO, 20 / 3
   def bilan
-    users = @users.dup
-    users.each { |u| u.calc_debt(@total_per_user) }
+    @users.each do |u|
+      calc_total_debt(u)
+    end
     transactions = []
-
-    until users.empty?
-      users = users.sort
-      first = users.first
-      last = users.last
+    until @users.size == 1
+    # 5.times do
+      @users = @users.sort
+      first = @users.first
+      last = @users.last
       value_change = [first.debt.abs, last.debt.abs].minmax[0]
       transactions << change_between_users(first, last, value_change)
-      users.reject! { |u| u.debt.zero? }
+      @users.reject! { |u| u.debt.zero? }
     end
     transactions
   end

@@ -22,8 +22,4 @@ class User < ApplicationRecord
   def all_except_self
     User.where.not(id: id)
   end
-
-  def calc_debt(total_per_user)
-    @debt = total_per_user - expenses
-  end
 end
