@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe User do
+  it "should delete bills when destroyed" do
+    user = create(:user)
+    Factura.create(user: user, amount: 10)
+
+    user.destroy
+
+    expect(Factura.all.count).to eq(0)
+  end
+
   describe "#expenses" do
     it "should return the sum of all bills of a user" do
       # setup
