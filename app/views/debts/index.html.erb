@@ -1,0 +1,30 @@
+<h3>Pagos interpersonales</h3>
+<p style="font-size: 12px;">Estos pagos no son contados en el total de la casa. Solo se tomen en cuenta entre dos utilisadores</p>
+
+<br>
+<% if @debts_to_pay.empty? %>
+  <h4>No tienes deudas por pagar</h4>
+<% else %>
+  <h4>Estas son tus deudas por pagar: </h4>
+
+  <ul class="home-page-card row">
+    <% @debts_to_pay.each do |debt|  %>
+      <li>
+        <%= debt.amount %> € a <%= debt.receiver.name %>: <%= debt.description %>. Fecha: <%= debt.created_at.strftime("%d/%m/%y") %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+<br>
+<% if @debts_to_receive.empty? %>
+  <h4>No tienes pagos por recibir</h4>
+<% else %>
+  <h4>Estos son los pagos que tienes por recibir: </h4>
+  <ul class="home-page-card row">
+    <% @debts_to_receive.each do |debt|  %>
+      <li>
+        <%= debt.amount %> € de <%= debt.receiver.name %>: <%= debt.description %>. Fecha: <%= debt.created_at.strftime("%d/%m/%y") %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
