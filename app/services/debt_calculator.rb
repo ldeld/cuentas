@@ -8,14 +8,13 @@ class DebtCalculator
 
   # u2 donne à u1
   def change_between_users(u1, u2, value)
-    # binding.pry
     u1.debt += value
     u2.debt -= value
     { receiver: u1.id, giver: u2.id, value: value }
   end
 
   def calc_total_debt(user)
-    user.debt = @total_per_user - user.expenses
+    user.debt = (@total_per_user - user.expenses).round(2)
   end
   # TODO, 20 / 3
   def bilan
@@ -24,11 +23,10 @@ class DebtCalculator
     end
     transactions = []
     until @users.size == 1
-    # 5.times do
       @users = @users.sort
       first = @users.first
       last = @users.last
-      value_change = [first.debt.abs, last.debt.abs].minmax[0]
+      value_change = [first.debt.abs, last.debt.abs].minmax[0].round(2)
       transactions << change_between_users(first, last, value_change)
       @users.reject! { |u| u.debt.zero? }
     end
