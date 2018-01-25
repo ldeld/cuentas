@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :debt do
-    giver nil
-    receiver nil
-    amount 1.5
+    association :payer, factory: :user
+    association :receiver, factory: :user
+    amount 10
     description "MyText"
   end
 end

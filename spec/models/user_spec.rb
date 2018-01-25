@@ -1,22 +1,40 @@
 require 'rails_helper'
 
 describe User do
-  it "should delete bills when destroyed" do
-    user = create(:user)
-    Factura.create(user: user, amount: 10)
+  describe "#destroy" do
+    it "should delete bills when destroyed" do
+      user = create(:user)
+      Factura.create(user: user, amount: 10)
 
-    user.destroy
+      user.destroy
 
-    expect(Factura.all.count).to eq(0)
+      expect(Factura.all.count).to eq(0)
+    end
+
+    it "should delete debts user has to pay" do
+      user = create(:user)
+      debt = create(:debt, payer: user)
+
+      user.destroy
+
+      expect(Debt.all.count).to eq(0)
+    end
+
+    it "should delete debts user has to receive" do
+      user = create(:user)
+      debt = create(:debt, receiver: user)
+
+      user.destroy
+
+      expect(Debt.all.count).to eq(0)
+    end
   end
 
   describe "#expenses" do
     it "should return the sum of all bills of a user" do
       # setup
       user = create(:user)
-      5.times do
-        Factura.create(user: user, amount: 10)
-      end
+      create_list(:factura, 5, user: user)
 
       expect(user.expenses).to eq(50.0)
     end
@@ -24,10 +42,7 @@ describe User do
 
   describe "#all_except_self" do
     it "should return all users but self" do
-      users = []
-      3.times do |i|
-        users << create(:user, email: "#{i}@test.com")
-      end
+      users = create_list(:user, 3)
 
       method_return = users[0].all_except_self
 
