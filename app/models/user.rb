@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :facturas, dependent: :destroy
+  has_many :debts_to_pay, class_name: 'Debt', foreign_key: 'payer_id', dependent: :destroy
+  has_many :debts_to_receive, class_name: 'Debt', foreign_key: 'receiver_id', dependent: :destroy
   attr_accessor :debt
 
   def expenses
