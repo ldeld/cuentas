@@ -4,7 +4,11 @@ describe User do
   describe "#expenses" do
     it "should return the sum of all bills of a user" do
       # setup
-      user = User.create(email: "a@a.a", password: "azeqsd", password_confirmation: "azeqsd")
+      user = User.create(
+        email: "a@a.a",
+        password: "azeqsd",
+        password_confirmation: "azeqsd"
+      )
       5.times do
         Factura.create(user: user, amount: 10)
       end
@@ -17,7 +21,11 @@ describe User do
     it "should return all users but self" do
       users = []
       3.times do |i|
-        users << User.create(email: "#{i}@test.com", password: "azeqsd", password_confirmation: "azeqsd")
+        users << User.create(
+          email: "#{i}@test.com",
+          password: "azeqsd",
+          password_confirmation: "azeqsd"
+        )
       end
 
       method_return = users[0].all_except_self
