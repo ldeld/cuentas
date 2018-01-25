@@ -5,11 +5,7 @@ describe DebtCalculator do
     it "should return an empty array if all users spent the same" do
       users = []
       3.times do |i|
-        users << User.create(
-          email: "#{i}@test.com",
-          password: "azeqsd",
-          password_confirmation: "azeqsd"
-        )
+        users << create(:user, email: "#{i}@test.com")
         Factura.create(user: users.last, amount: 10)
       end
       debt_calculator = DebtCalculator.new(users)
@@ -20,11 +16,7 @@ describe DebtCalculator do
     it "should return the correct hash" do
       users = []
       3.times do |i|
-        users << User.create(
-          email: "#{i}@test.com",
-          password: "azeqsd",
-          password_confirmation: "azeqsd"
-        )
+        users << create(:user, email: "#{i}@test.com")
         Factura.create(user: users.last, amount: 10 * (i + 1) * ((i + 1)**2))
         # fisrt user: 10, second user: 80, third user: 270
       end
